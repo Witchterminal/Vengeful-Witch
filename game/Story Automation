@@ -1,0 +1,64 @@
+import tweepy
+import random
+
+# Twitter API credentials - Replace with your own
+api_key = "YOUR_API_KEY"
+api_secret = "YOUR_API_SECRET"
+access_token = "YOUR_ACCESS_TOKEN"
+access_token_secret = "YOUR_ACCESS_TOKEN_SECRET"
+
+# Authenticate to Twitter
+auth = tweepy.OAuthHandler(api_key, api_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+# Create API object
+api = tweepy.API(auth)
+
+# Alicia's story - each node represents a point in the story where a decision is needed
+story = {
+    'start': {
+        'text': "Alicia stands at the crossroads. Does she go left towards the dark forest or right towards the mystical mountain?",
+        'options': ['Left - Dark Forest', 'Right - Mystical Mountain']
+    },
+    'dark_forest': {
+        'text': "In the forest, Alicia encounters a mysterious creature. Does she fight it or try to befriend it?",
+        'options': ['Fight', 'Befriend']
+    },
+    'mystical_mountain': {
+        'text': "On the mountain, Alicia finds an ancient map. Does she follow it or ignore it and continue her journey?",
+        'options': ['Follow Map', 'Ignore Map']
+    },
+    # Add more story nodes as needed
+}
+
+current_node = 'start'
+
+# Function to create and fetch poll results
+def create_and_fetch_poll(current_node):
+    poll = api.create_poll(
+        "What should Alicia do next?",
+        options=story[current_node]['options'],
+        duration_minutes=15  # Poll lasts for 15 minutes, adjust as needed
+    )
+    
+    # Wait for poll to finish - In real-world, you'd need to wait or check periodically
+    import time
+    time.sleep(900)  # 15 minutes in seconds, this is just for simulation
+    
+    poll_result = api.get_poll(poll.id_str)
+    
+    # Get the option with the most votes
+    max_votes = max(poll_result.options, key=lambda x: x.votes)
+    return max_votes.label
+
+# Function to progress the story
+def progress_story():
+    global current_node
+    decision = create_and_fetch_poll(current_node)
+    
+    if decision == story[current_node]['options'][0]:
+        next_node = 'dark_forest' if current_node == 'start' else 'end_fight'
+    else:
+        next_node = 'mystical_mountain' if current_node == 'start' else 'end_befriend'
+    
+    print(f"Story
