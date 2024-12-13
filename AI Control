@@ -1,18 +1,28 @@
-AI Control
-Open story, the direction of the story is determined by community voting.
-[package]
-name = "ai-agent"
-version = "0.1.0"
-edition = "2021"
+python
+import random
 
-[dependencies]
-serde = { version = "1.0", features = ["derive"] }
-rig-core = "0.5.0"
-tokio = { version = "1", features = ["full"] }
-mini-redis = "0.4"
-anyhow = "1.0.94"
-reqwest = { version = "0.12.9", features = ["json"] }
-twitter-v2 = "0.1.8"
-rand = "0.8.5"
-dotenv = "0.15.0"
-serde_json = "1.0.133"
+# Assume these are the personality traits we're working with
+personalities = ['Optimistic', 'Pessimistic', 'Calm', 'Irritable', 'Friendly', 'Aloof']
+
+# Our character
+character = {
+    'name': "Ulquiorra's Character",
+    'personality': random.choice(personalities)  # Starting with a random personality
+}
+
+def get_twitter_vote():
+    # This function should connect to the Twitter API, but for now, we'll fake it
+    return random.choice(personalities)
+
+def update_character_personality(character):
+    new_personality = get_twitter_vote()
+    if character['personality'] != new_personality:
+        print(f"{character['name']}'s personality has changed from {character['personality']} to {new_personality}!")
+        character['personality'] = new_personality
+    else:
+        print("Not enough votes to change personality. Character remains the same.")
+
+# Update the character's personality each time the script runs
+update_character_personality(character)
+
+print(f"Current Character Status: {character['name']} - {character['personality']}")
