@@ -1,0 +1,47 @@
+python
+import tweepy
+import random
+
+# Twitter API credentials - Replace with your own
+api_key = "YOUR_API_KEY"
+api_secret = "YOUR_API_SECRET"
+access_token = "YOUR_ACCESS_TOKEN"
+access_token_secret = "YOUR_ACCESS_TOKEN_SECRET"
+
+# Authenticate to Twitter
+auth = tweepy.OAuthHandler(api_key, api_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+# Create API object
+api = tweepy.API(auth)
+
+# Hypothetical community voting system - we'll simulate it with random choices
+def get_community_vote():
+    # In reality, this would fetch votes from your community platform
+    vote_options = [
+        "Today's Avengers training was epic!",
+        "Who's up for a battle with Loki?",
+        "Thor's hammer is looking for a new owner!",
+        "Iron Man's suit got an upgrade!",
+        "Hulk smash, but also Hulk bake cookies?"
+    ]
+    return random.choice(vote_options)
+
+# Function to post to Twitter
+def post_to_twitter(message):
+    try:
+        api.update_status(message)
+        print(f"Successfully tweeted: {message}")
+    except tweepy.TweepError as e:
+        print(f"Error tweeting: {e}")
+
+# Main function to decide and tweet based on vote
+def tweet_based_on_vote():
+    vote_result = get_community_vote()
+    tweet_content = f"Avengers Assemble! {vote_result} #Avengers"
+    post_to_twitter(tweet_content)
+
+# Run the script
+if __name__ == "__main__":
+    print("Deciding tweet based on community vote...")
+    tweet_based_on_vote()
