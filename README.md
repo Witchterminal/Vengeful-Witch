@@ -1,3 +1,4 @@
+![IMAGE](https://github.com/user-attachments/assets/babdd020-28b9-4760-9b2f-fd95ea50a2db)
 # Vengeful-Witch
 A community-driven AI adventure game
 Alicia comes from the mysterious land of witches. She has stunning beauty and a sexy body. She has long purple hair that falls like a waterfall, and her deep blue eyes seem to hide endless temptation. Her clothes are very revealing and stylish. The black and purple clothes highlight her evil temperament, and the black fishnet stockings and high-heeled leather boots add to her sexiness.
